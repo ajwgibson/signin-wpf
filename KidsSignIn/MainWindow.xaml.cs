@@ -28,8 +28,8 @@ namespace KidsSignIn
             InitializeComponent();
 
             // Set window icon
-            //Uri iconUri = new Uri("pack://application:,,,/kidssignin.ico", UriKind.RelativeOrAbsolute);
-            //this.Icon = BitmapFrame.Create(iconUri);
+            Uri iconUri = new Uri("pack://application:,,,/kidssignin.ico", UriKind.RelativeOrAbsolute);
+            this.Icon = BitmapFrame.Create(iconUri);
 
             // Fix for date formats
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-GB");

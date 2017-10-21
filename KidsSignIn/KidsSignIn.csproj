@@ -198,7 +198,7 @@
     <None Include="SampleData.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Labels\VineyardStars.label">
+    <None Include="Labels\ccv\VineyardStars.label">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -212,10 +212,13 @@
     <Resource Include="Resources\search.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Labels\ccv-icon.png">
+    <Content Include="kidssignin.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Labels\vineyardstars-bw.png">
+    <Content Include="Labels\ccv\ccv-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Labels\ccv\vineyardstars-bw.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\warning.png" />

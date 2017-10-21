@@ -8,5 +8,11 @@
     <Setting Name="LaptopLabel" Type="System.String" Scope="User">
       <Value Profile="(Default)">A</Value>
     </Setting>
+    <Setting Name="LabelFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="NumberOfLabels" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

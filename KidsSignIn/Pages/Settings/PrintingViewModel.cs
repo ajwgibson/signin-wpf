@@ -1,16 +1,5 @@
 ﻿using KidsSignIn.Service;
-using FirstFloor.ModernUI.Presentation;
 using log4net;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace KidsSignIn.Pages.Settings
 {
@@ -18,11 +7,20 @@ namespace KidsSignIn.Pages.Settings
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(PrintingViewModel));
 
-        private string labelFile;
+        private string labelFile = Properties.Settings.Default.LabelFile;
+        private int    copies    = Properties.Settings.Default.NumberOfLabels;
 
         #region Properties
 
-        public int Copies { get; set; }
+        public int Copies
+        {
+            get { return copies; }
+            set
+            {
+                if (copies == value) return;
+                copies = value;
+            }
+        }
 
         public string LabelFile 
         {
@@ -50,12 +48,20 @@ namespace KidsSignIn.Pages.Settings
 
         public PrintingViewModel()
         {
-            Copies = 3;
-            LabelFile = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName + Path.DirectorySeparatorChar + @"Labels\VineyardStars.label";
             var printers = PrintService.Printers;
             if (printers != null && printers.Count > 0) Printer = printers[0].Name;
             else Printer = "No active Dymo LabelPrinter found";
-            PrintSundayDate = false;
+        }
+
+        #endregion
+
+        #region Public methods
+
+        public void Save()
+        {
+            Properties.Settings.Default.NumberOfLabels = copies;
+            Properties.Settings.Default.LabelFile      = labelFile;
+            Properties.Settings.Default.Save();
         }
 
         #endregion

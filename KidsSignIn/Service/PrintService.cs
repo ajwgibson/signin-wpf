@@ -20,8 +20,8 @@ namespace KidsSignIn.Service
         private PrintService() 
         {
             Printer = Framework.GetLabelWriterPrinters().FirstOrDefault(p => p.IsConnected == true);
-            Label = Framework.Open(@"Labels\VineyardStars.label");
-            Copies = 3;
+            Label   = Framework.Open(Properties.Settings.Default.LabelFile);
+            Copies  = Properties.Settings.Default.NumberOfLabels;
         }
 
         public static PrintService Instance

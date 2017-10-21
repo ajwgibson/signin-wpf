@@ -46,5 +46,29 @@ namespace KidsSignIn.Properties {
                 this["LaptopLabel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LabelFile {
+            get {
+                return ((string)(this["LabelFile"]));
+            }
+            set {
+                this["LabelFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int NumberOfLabels {
+            get {
+                return ((int)(this["NumberOfLabels"]));
+            }
+            set {
+                this["NumberOfLabels"] = value;
+            }
+        }
     }
 }
