@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfRoom xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Room>
+    <Colour>Pink</Colour>
+    <Title>Tiny Stars</Title>
+    <Description>10 months to 2 years and crawling</Description>
+    <IsAvailable>true</IsAvailable>
+    <ShowOnLabel>true</ShowOnLabel>
+  </Room>
+  <Room>
+    <Colour>Lime</Colour>
+    <Title>Little Stars</Title>
+    <Description>Under 2 and walking</Description>
+    <IsAvailable>true</IsAvailable>
+    <ShowOnLabel>true</ShowOnLabel>
+  </Room>
+  <Room>
+    <Colour>Green</Colour>
+    <Title>Small Stars</Title>
+    <Description>Aged 2 and over but not yet in nursery</Description>
+    <IsAvailable>true</IsAvailable>
+    <ShowOnLabel>true</ShowOnLabel>
+  </Room>
+  <Room>
+    <Colour>Blue</Colour>
+    <Title>Allstars Juniors</Title>
+    <Description>Nursery and primary 1</Description>
+    <IsAvailable>true</IsAvailable>
+    <ShowOnLabel>true</ShowOnLabel>
+  </Room>
+  <Room>
+    <Colour>Orange</Colour>
+    <Title>Allstars</Title>
+    <Description>Primary 2, 3 and 4</Description>
+    <IsAvailable>true</IsAvailable>
+    <ShowOnLabel>true</ShowOnLabel>
+  </Room>
+  <Room>
+    <Colour>Purple</Colour>
+    <Title>Allstars High</Title>
+    <Description>Primary 5, 6 and 7</Description>
+    <IsAvailable>true</IsAvailable>
+    <ShowOnLabel>true</ShowOnLabel>
+  </Room>
+  <Room>
+    <Colour>Any</Colour>
+    <Title>Kids Serving</Title>
+    <Description>Kids under the age of 11 who are serving</Description>
+    <IsAvailable>true</IsAvailable>
+    <ShowOnLabel>true</ShowOnLabel>
+  </Room>
+  <Room>
+    <Colour>Any</Colour>
+    <Title>Adult Serving</Title>
+    <Description>Kids whose parent or guardian is serving</Description>
+    <IsAvailable>true</IsAvailable>
+    <ShowOnLabel>false</ShowOnLabel>
+  </Room>
+</ArrayOfRoom>

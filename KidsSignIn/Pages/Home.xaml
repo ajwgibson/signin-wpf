@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="KidsSignIn.Pages.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:kids="clr-namespace:KidsSignIn.Controls"
+             xmlns:kidsconvert="clr-namespace:KidsSignIn.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <kidsconvert:BooleanToStringConverter x:Key="BooleanToStringConverter"/>
+    </UserControl.Resources>
+
+    <Grid Style="{StaticResource ContentRoot}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Margin="0,0,20,0" Grid.Row="0" Grid.Column="0">
+            <StackPanel DockPanel.Dock="Top">
+                <TextBlock Text="CHILDREN" Style="{StaticResource Heading2}" Margin="0,0,0,12" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <kids:SearchTextBox Grid.Column="0"
+                                        SearchEventTimeDelay="00:00:00.50"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Left" Width="200"
+                                        Text="{Binding FilterValue}"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" >
+                        <Button Content="Newcomer"
+                                Click="NewcomerButton_Click"
+                                IsEnabled="{Binding NewcomerButtonEnabled}"
+                                Margin="0,0,2,0" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <DataGrid IsReadOnly="True" AutoGenerateColumns="False"
+                        SelectionMode="Single" SelectionUnit="FullRow"
+                        ItemsSource="{Binding Children}"
+                        SelectedItem="{Binding SelectedChild}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First name" Binding="{Binding First}"/>
+                    <DataGridTextColumn Header="Last name" Binding="{Binding Last}" />
+                    <DataGridTextColumn Header="Label" Binding="{Binding Label}"/>
+                    <DataGridTextColumn Header="Room" Binding="{Binding Room}"/>
+                    <DataGridTextColumn Header="Time" Binding="{Binding SignedInAt, StringFormat=g}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+
+        <GridSplitter Grid.Row="0" Grid.Column="1" />
+
+        <StackPanel Grid.Row="0" Grid.Column="2" Margin="20,0,0,0">
+
+            <TextBlock Text="SELECTED CHILD" Style="{StaticResource Heading2}" Margin="0,0,0,12" />
+
+            <StackPanel x:Name="Form" Orientation="Vertical" Visibility="{Binding SelectedChildVisibility}">
+
+                <StackPanel.Resources>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Orientation" Value="Horizontal" />
+                        <Setter Property="Margin" Value="0,0,0,4" />
+                    </Style>
+                    <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                        <Setter Property="Width" Value="100" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                    <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                        <Setter Property="Padding" Value="0,3" />
+                    </Style>
+                    <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+                        <Setter Property="Padding" Value="0,3" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <StackPanel>
+                    <Label Content="First name" />
+                    <TextBlock Text="{Binding SelectedChild.First, Mode=OneWay}" Style="{StaticResource Heading2}" Margin="0,0,0,8" VerticalAlignment="Center" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="Last name" />
+                    <TextBlock Text="{Binding SelectedChild.Last, Mode=OneWay}" Style="{StaticResource Heading2}" Margin="0,0,0,8" VerticalAlignment="Center" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="Environment" VerticalAlignment="Top"/>
+                    <ListBox ItemsSource="{Binding AvailableRooms}"
+                            SelectedItem="{Binding SelectedRoom}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton Content="{Binding DisplayName}"
+                                             IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
+                                             IsEnabled="{Binding IsEnabled}"
+                                             ToolTip="{Binding Description}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="100,16,0,0">
+
+                    <Button Content="Sign in"
+                        HorizontalAlignment="Left"
+                        Visibility="{Binding SignInButtonVisibility}"
+                        IsEnabled="{Binding SignInEnabled}"
+                        Click="SignInButton_Click" />
+
+                    <Button Content="Clear"
+                        HorizontalAlignment="Left"
+                        Visibility="{Binding ClearButtonVisibility}"
+                        Click="ClearButton_Click" />
+
+                    <Button Content="Change"
+                        HorizontalAlignment="Left"
+                        Visibility="{Binding ChangeButtonVisibility}"
+                        Click="ChangeButton_Click" />
+
+                </StackPanel>
+
+                <StackPanel Visibility="{Binding UpdateContactDetailsVisibility}" Margin="0,20,0,8">
+                    <Image Source="pack://application:,,,/KidsSignIn;component/Resources/warning.png" Width="24" Margin="60,0,15,0" />
+                    <TextBlock Text="Please update contact details!"
+                           Style="{StaticResource Heading2}"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap"/>
+                </StackPanel>
+
+            </StackPanel>
+
+        </StackPanel>
+
+        <Grid Grid.Row="1" Grid.Column="0" Margin="0,40,0,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="{Binding DataFilename}" Style="{StaticResource Small}" Grid.Column="0" VerticalAlignment="Center"/>
+            <Button Content="Load data" HorizontalAlignment="Right" Grid.Column="1" Click="LoadDataButton_Click" />
+
+        </Grid>
+
+    </Grid>
+
+</UserControl>

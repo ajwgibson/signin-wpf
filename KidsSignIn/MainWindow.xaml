@@ -1,0 +1,27 @@
+﻿<mui:ModernWindow x:Class="KidsSignIn.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        xmlns:kids="clr-namespace:KidsSignIn.Controls"
+        Title="Kids Sign In" IsTitleVisible="True"
+        WindowStartupLocation="CenterScreen" Width="1000" Height="700"
+        ContentSource="/Pages/Home.xaml">
+
+    <mui:ModernWindow.MenuLinkGroups>
+        <mui:LinkGroup DisplayName="home">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="sign-in" Source="/Pages/Home.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="settings" GroupKey="settings">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="software" Source="/Pages/SettingsPage.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+    </mui:ModernWindow.MenuLinkGroups>
+
+    <mui:ModernWindow.TitleLinks>
+        <mui:Link DisplayName="settings" Source="/Pages/SettingsPage.xaml" />
+    </mui:ModernWindow.TitleLinks>
+
+</mui:ModernWindow>

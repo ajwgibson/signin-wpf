@@ -1,0 +1,44 @@
+﻿<mui:ModernDialog x:Class="KidsSignIn.Pages.NewcomerDialogue"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                  xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+                  mc:Ignorable="d" 
+                  d:DesignHeight="300" d:DesignWidth="300"
+                  Title="ModernDialog">
+
+    <!-- Note: ModernDialog buttons are defined in the constructor of the code behind class -->
+
+    <StackPanel x:Name="Form" Orientation="Vertical" Visibility="{Binding SelectedChildVisibility}">
+
+        <StackPanel.Resources>
+            <Style TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="Margin" Value="0,0,0,4" />
+            </Style>
+            <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                <Setter Property="Padding" Value="0,3" />
+            </Style>
+            <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+                <Setter Property="Padding" Value="0,3" />
+            </Style>
+        </StackPanel.Resources>
+
+        <StackPanel>
+            <Label Content="First name" />
+            <TextBox Name="txtFirst" Text="{Binding First}" Width="300"/>
+        </StackPanel>
+
+        <StackPanel>
+            <Label Content="Last name" />
+            <TextBox Name="txtLast" Text="{Binding Last}" Width="300"/>
+        </StackPanel>
+
+    </StackPanel>
+
+</mui:ModernDialog>
