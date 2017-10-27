@@ -5,9 +5,8 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using KidsSignIn.Properties;
 
 namespace KidsSignIn.Service
 {
@@ -21,10 +20,7 @@ namespace KidsSignIn.Service
         {
             Printer = Framework.GetLabelWriterPrinters().FirstOrDefault(p => p.IsConnected == true);
             Copies  = Properties.Settings.Default.NumberOfLabels;
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.LabelFile))
-            {
-                Label = Framework.Open(Properties.Settings.Default.LabelFile);
-            }
+            LabelFile = Settings.Default.LabelFile;
         }
 
         public static PrintService Instance
@@ -37,7 +33,7 @@ namespace KidsSignIn.Service
         }
 
         public IPrinter Printer { get; private set; }
-        public ILabel Label { get; private set; }
+        public string LabelFile { get; private set; }
         public int Copies { get; private set; }
         public bool PrintForSunday { get; private set; }
 
@@ -56,15 +52,11 @@ namespace KidsSignIn.Service
         {
             logger.DebugFormat("Configure: Printer={0}, Copies={1}, Label={2}", printer, copies, labelFile);
 
+            LabelFile = labelFile;
+
             Printer = Printers.FirstOrDefault(p => p.Name == printer);
-            Label = Framework.Open(labelFile);
             Copies = copies;
             PrintForSunday = printForSunday;
-        }
-
-        public bool PrintingAvailable 
-        {
-            get { return Printer != null && Label != null; }
         }
 
         public void Print(Child child)
@@ -79,7 +71,9 @@ namespace KidsSignIn.Service
 
         private void DoPrint(Child child, int copies)
         {
-            if (PrintingAvailable)
+            ILabel label = Framework.Open(LabelFile);
+
+            if (Printer != null && label != null)
             {
                 var regex = "(\\[.*\\])|(\".*\")|('.*')|(\\(.*\\))";
                 var first = Regex.Replace(child.First, regex, "").Trim();
@@ -92,25 +86,31 @@ namespace KidsSignIn.Service
                     child.Label,
                     Printer.Name);
 
-                Label.SetObjectText("NAME", string.Format("{0}\r\n{1}", first, last));
-                Label.SetObjectText("ENVIRONMENT", child.RoomLabel);
-                Label.SetObjectText("NUMBER", child.Label);
+                label.SetObjectText("NAME", string.Format("{0}\r\n{1}", first, last));
+                label.SetObjectText("ORGANISATION", Settings.Default.Organisation);
+                label.SetObjectText("ENVIRONMENT", child.RoomLabel);
+                label.SetObjectText("NUMBER", child.Label);
 
                 var signedInAt = child.SignedInAt.HasValue ? child.SignedInAt.Value : DateTime.Now;
                 if (PrintForSunday && !(signedInAt.DayOfWeek == DayOfWeek.Sunday)) signedInAt = signedInAt.Next(DayOfWeek.Sunday);
 
-                Label.SetObjectText("DATE", signedInAt.ToString("d MMMM yyyy"));
+                label.SetObjectText("DATE", signedInAt.ToString("d MMMM yyyy"));
 
                 if (child.IsNewcomer)
                 {
-                    Label.SetObjectText("FLAGS", "** NEW **");
+                    label.SetObjectText("FLAGS", "** NEW **");
                 }
                 else
                 {
-                    Label.SetObjectText("FLAGS", String.Empty);
+                    label.SetObjectText("FLAGS", String.Empty);
                 }
-                
-                Label.Print(Printer, new LabelWriterPrintParams() { Copies = copies });
+
+                if (!child.MedicalFlag)
+                {
+                    label.SetObjectText("MEDICAL", String.Empty);
+                }
+
+                label.Print(Printer, new LabelWriterPrintParams() { Copies = copies });
             }
         }
 

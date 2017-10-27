@@ -70,5 +70,17 @@ namespace KidsSignIn.Properties {
                 this["NumberOfLabels"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Organisation {
+            get {
+                return ((string)(this["Organisation"]));
+            }
+            set {
+                this["Organisation"] = value;
+            }
+        }
     }
 }

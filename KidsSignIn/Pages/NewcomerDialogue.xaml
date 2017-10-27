@@ -4,6 +4,7 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+                  xmlns:kidsconvert="clr-namespace:KidsSignIn.Converters"
                   mc:Ignorable="d" 
                   d:DesignHeight="300" d:DesignWidth="300"
                   Title="ModernDialog">
@@ -13,6 +14,7 @@
     <StackPanel x:Name="Form" Orientation="Vertical" Visibility="{Binding SelectedChildVisibility}">
 
         <StackPanel.Resources>
+            <kidsconvert:BooleanInverterConverter x:Key="BooleanInverterConverter"/>
             <Style TargetType="StackPanel">
                 <Setter Property="Orientation" Value="Horizontal" />
                 <Setter Property="Margin" Value="0,0,0,4" />
@@ -37,6 +39,16 @@
         <StackPanel>
             <Label Content="Last name" />
             <TextBox Name="txtLast" Text="{Binding Last}" Width="300"/>
+        </StackPanel>
+
+        <StackPanel>
+            <Label Content="Medical flag?" />
+            <StackPanel>
+                <RadioButton GroupName="Group1" Content="No"  Width="80"
+                             IsChecked="{Binding MedicalFlag, Converter={StaticResource BooleanInverterConverter}}" />
+                <RadioButton GroupName="Group1" Content="Yes" 
+                             IsChecked="{Binding MedicalFlag}"  />
+            </StackPanel>
         </StackPanel>
 
     </StackPanel>

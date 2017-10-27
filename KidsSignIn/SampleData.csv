@@ -1,8 +1,8 @@
-Id,First,Last,UpdateRequired
+Id,First,Last,UpdateRequired,MedicalFlag
 11,Lauren,Conway,
 12,Emily,Henderson,
 13,Sienna,Yates,True
-14,Harrison,Carroll,
+14,Harrison,Carroll,,True
 15,Taylor,Palmer,
 16,Maya,Marsh,
 17,Riley,Farmer,True
@@ -11,7 +11,7 @@ Id,First,Last,UpdateRequired
 20,Anthony,Moss,
 21,Ellie,Henry,
 22,Sofia,Phillips,
-23,Owen,Bartlett,
+23,Owen,Bartlett,,True
 24,Alicia,Jordan,
 25,Peter,Hancock,
 26,Spencer,Kaur,

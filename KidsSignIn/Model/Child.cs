@@ -29,6 +29,9 @@ namespace KidsSignIn.Model
         [CsvColumn]
         public bool UpdateRequired { get; set; }
 
+        [CsvColumn]
+        public bool MedicalFlag { get; set; }
+
 
 
         #region Properties not saved to or loaded from CSV

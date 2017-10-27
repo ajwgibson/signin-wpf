@@ -24,6 +24,11 @@
                     </StackPanel.Resources>
 
                     <StackPanel>
+                        <Label Content="Organisation" />
+                        <TextBox Text="{Binding Organisation, ValidatesOnDataErrors=True}" Width="500" />
+                    </StackPanel>
+                    
+                    <StackPanel>
                         <Label Content="Laptop label" />
                         <TextBox Text="{Binding LaptopLabel, ValidatesOnDataErrors=True}" Width="50" />
                     </StackPanel>

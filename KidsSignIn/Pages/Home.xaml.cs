@@ -42,7 +42,8 @@ namespace KidsSignIn.Pages
             {
                 ((HomeViewModel)DataContext).AddNewcomer(
                     newcomerDialogueViewModel.First, 
-                    newcomerDialogueViewModel.Last);
+                    newcomerDialogueViewModel.Last,
+                    newcomerDialogueViewModel.MedicalFlag);
             }
         }
 

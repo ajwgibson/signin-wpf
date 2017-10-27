@@ -133,13 +133,29 @@
 
                     </StackPanel>
 
-                    <StackPanel Visibility="{Binding UpdateContactDetailsVisibility}" Margin="0,20,0,8">
+                    <Grid Visibility="{Binding UpdateContactDetailsVisibility}" Margin="0,20,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                         <Image Source="pack://application:,,,/KidsSignIn;component/Resources/warning.png" Width="24" Margin="60,0,15,0" />
-                        <TextBlock Text="Please update contact details!"
+                        <TextBlock Grid.Column="1"
+                               Text="Please check if contact details have been updated recently"
                                Style="{StaticResource Heading2}"
-                               VerticalAlignment="Center"
                                TextWrapping="Wrap"/>
-                    </StackPanel>
+                    </Grid>
+
+                    <Grid Visibility="{Binding MedicalWarningVisibility}" Margin="0,20,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="pack://application:,,,/KidsSignIn;component/Resources/medical.png" Width="24" Margin="60,0,15,0" />
+                        <TextBlock Grid.Column="1"
+                               Text="Please inform room leader of medical issues"
+                               Style="{StaticResource Heading2}"
+                               TextWrapping="Wrap"/>
+                    </Grid>
 
                 </StackPanel>
             </StackPanel>

@@ -303,6 +303,18 @@ namespace KidsSignIn.Pages
             }
         }
 
+        /// <summary>
+        /// Gets the visibility of the medical warning.
+        /// </summary>
+        public Visibility MedicalWarningVisibility
+        {
+            get
+            {
+                if (selectedChild != null && selectedChild.MedicalFlag) return Visibility.Visible;
+                return Visibility.Collapsed;
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -397,12 +409,13 @@ namespace KidsSignIn.Pages
         /// <summary>
         /// Adds a new child to the list and selects them to allow immediate sign in
         /// </summary>
-        public void AddNewcomer(string first, string last)
+        public void AddNewcomer(string first, string last, bool medicalFlag)
         {
             children.Add(new Child
                 {
                     First = first,
                     Last = last,
+                    MedicalFlag = medicalFlag,
                     IsNewcomer = true,
                 });
 
@@ -440,6 +453,7 @@ namespace KidsSignIn.Pages
             NotifyPropertyChanged("StatisticsTableVisibility");
             NotifyPropertyChanged("NewcomerButtonEnabled");
             NotifyPropertyChanged("FilterValue");
+            NotifyPropertyChanged("MedicalWarningVisibility");
         }
 
         #endregion
