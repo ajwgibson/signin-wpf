@@ -11,7 +11,6 @@
             <mui:ModernTab.Links>
                 <mui:Link DisplayName="general"    Source="/Pages/Settings/General.xaml" />
                 <mui:Link DisplayName="printing"   Source="/Pages/Settings/Printing.xaml" />
-                <mui:Link DisplayName="appearance" Source="/Pages/Settings/Appearance.xaml" />
                 <mui:Link DisplayName="about"      Source="/Pages/Settings/About.xaml" />
             </mui:ModernTab.Links>
         </mui:ModernTab>
