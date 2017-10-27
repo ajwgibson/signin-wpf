@@ -72,8 +72,7 @@ namespace KidsSignIn.Pages
             set
             {
                 children = value;
-                NotifyPropertyChanged("Children");
-                NotifyPropertyChanged("NewcomerButtonEnabled");
+                NotifyChanges();
             } 
         }
 
@@ -90,8 +89,7 @@ namespace KidsSignIn.Pages
                 SelectedChild = null;
 
                 filterValue = value;
-                NotifyPropertyChanged("FilterValue");
-                NotifyPropertyChanged("Children");
+                NotifyChanges();
             }
         }
 
@@ -126,6 +124,18 @@ namespace KidsSignIn.Pages
             get 
             {
                 if (selectedChild != null) return Visibility.Visible;
+                return Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// Gets the visibility of the statistics panel.
+        /// </summary>
+        public Visibility StatisticsVisibility
+        {
+            get
+            {
+                if (selectedChild == null) return Visibility.Visible;
                 return Visibility.Collapsed;
             }
         }
@@ -247,6 +257,49 @@ namespace KidsSignIn.Pages
             {
                 if (selectedChild != null && selectedChild.UpdateRequired) return Visibility.Visible;
                 return Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// Gets the count of signed in children.
+        /// </summary>
+        public int SignInTotal
+        {
+            get
+            {
+                if (children == null) return 0;
+                return children.Where(c => c.SignedInAt != null).Count();
+            }
+        }
+
+        /// <summary>
+        /// Gets the visibility of the statistics table.
+        /// </summary>
+        public Visibility StatisticsTableVisibility
+        {
+            get
+            {
+                if (SignInTotal > 0) return Visibility.Visible;
+                return Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// Gets the breakdown of room counts.
+        /// </summary>
+        public Dictionary<string, int> Statistics
+        {
+            get
+            {
+                Dictionary<string, int> stats = new Dictionary<string, int>();
+                if (children != null)
+                {
+                    stats = children
+                                .Where(c => c.SignedInAt != null)
+                                .OrderBy(c => c.Room).GroupBy(c => c.Room)
+                                .ToDictionary(g => g.Key, g => g.Count());
+                }
+                return stats;
             }
         }
 
@@ -374,6 +427,7 @@ namespace KidsSignIn.Pages
         {
             NotifyPropertyChanged("SelectedChild");
             NotifyPropertyChanged("SelectedChildVisibility");
+            NotifyPropertyChanged("StatisticsVisibility");
             NotifyPropertyChanged("UpdateContactDetailsVisibility");
             NotifyPropertyChanged("SelectedRoom");
             NotifyPropertyChanged("SignInEnabled");
@@ -381,6 +435,11 @@ namespace KidsSignIn.Pages
             NotifyPropertyChanged("ClearButtonVisibility");
             NotifyPropertyChanged("ChangeButtonVisibility");
             NotifyPropertyChanged("Children");
+            NotifyPropertyChanged("SignInTotal");
+            NotifyPropertyChanged("Statistics");
+            NotifyPropertyChanged("StatisticsTableVisibility");
+            NotifyPropertyChanged("NewcomerButtonEnabled");
+            NotifyPropertyChanged("FilterValue");
         }
 
         #endregion

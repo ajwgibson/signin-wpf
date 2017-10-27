@@ -66,82 +66,124 @@
 
         <StackPanel Grid.Row="0" Grid.Column="2" Margin="20,0,0,0">
 
-            <TextBlock Text="SELECTED CHILD" Style="{StaticResource Heading2}" Margin="0,0,0,12" />
+            <StackPanel Visibility="{Binding SelectedChildVisibility}">
+                <TextBlock Text="SELECTED CHILD" Style="{StaticResource Heading2}" Margin="0,0,0,12" />
+                
+                <StackPanel x:Name="Form" Orientation="Vertical" >
 
-            <StackPanel x:Name="Form" Orientation="Vertical" Visibility="{Binding SelectedChildVisibility}">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Orientation" Value="Horizontal" />
+                            <Setter Property="Margin" Value="0,0,0,4" />
+                        </Style>
+                        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                            <Setter Property="Width" Value="100" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                        <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                    </StackPanel.Resources>
 
-                <StackPanel.Resources>
-                    <Style TargetType="StackPanel">
-                        <Setter Property="Orientation" Value="Horizontal" />
-                        <Setter Property="Margin" Value="0,0,0,4" />
-                    </Style>
-                    <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
-                        <Setter Property="Width" Value="100" />
-                        <Setter Property="VerticalAlignment" Value="Center" />
-                    </Style>
-                    <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
-                        <Setter Property="Padding" Value="0,3" />
-                    </Style>
-                    <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
-                        <Setter Property="Padding" Value="0,3" />
-                    </Style>
-                </StackPanel.Resources>
+                    <StackPanel>
+                        <Label Content="First name" />
+                        <TextBlock Text="{Binding SelectedChild.First, Mode=OneWay}" Style="{StaticResource Heading2}" Margin="0,0,0,8" VerticalAlignment="Center" />
+                    </StackPanel>
 
-                <StackPanel>
-                    <Label Content="First name" />
-                    <TextBlock Text="{Binding SelectedChild.First, Mode=OneWay}" Style="{StaticResource Heading2}" Margin="0,0,0,8" VerticalAlignment="Center" />
+                    <StackPanel>
+                        <Label Content="Last name" />
+                        <TextBlock Text="{Binding SelectedChild.Last, Mode=OneWay}" Style="{StaticResource Heading2}" Margin="0,0,0,8" VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label Content="Environment" VerticalAlignment="Top"/>
+                        <ListBox ItemsSource="{Binding AvailableRooms}"
+                                SelectedItem="{Binding SelectedRoom}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton Content="{Binding DisplayName}"
+                                                 IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
+                                                 IsEnabled="{Binding IsEnabled}"
+                                                 ToolTip="{Binding Description}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="100,16,0,0">
+
+                        <Button Content="Sign in"
+                            HorizontalAlignment="Left"
+                            Visibility="{Binding SignInButtonVisibility}"
+                            IsEnabled="{Binding SignInEnabled}"
+                            Click="SignInButton_Click" />
+
+                        <Button Content="Clear"
+                            HorizontalAlignment="Left"
+                            Visibility="{Binding ClearButtonVisibility}"
+                            Click="ClearButton_Click" />
+
+                        <Button Content="Change"
+                            HorizontalAlignment="Left"
+                            Visibility="{Binding ChangeButtonVisibility}"
+                            Click="ChangeButton_Click" />
+
+                    </StackPanel>
+
+                    <StackPanel Visibility="{Binding UpdateContactDetailsVisibility}" Margin="0,20,0,8">
+                        <Image Source="pack://application:,,,/KidsSignIn;component/Resources/warning.png" Width="24" Margin="60,0,15,0" />
+                        <TextBlock Text="Please update contact details!"
+                               Style="{StaticResource Heading2}"
+                               VerticalAlignment="Center"
+                               TextWrapping="Wrap"/>
+                    </StackPanel>
+
                 </StackPanel>
-
-                <StackPanel>
-                    <Label Content="Last name" />
-                    <TextBlock Text="{Binding SelectedChild.Last, Mode=OneWay}" Style="{StaticResource Heading2}" Margin="0,0,0,8" VerticalAlignment="Center" />
-                </StackPanel>
-
-                <StackPanel>
-                    <Label Content="Environment" VerticalAlignment="Top"/>
-                    <ListBox ItemsSource="{Binding AvailableRooms}"
-                            SelectedItem="{Binding SelectedRoom}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <RadioButton Content="{Binding DisplayName}"
-                                             IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
-                                             IsEnabled="{Binding IsEnabled}"
-                                             ToolTip="{Binding Description}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="100,16,0,0">
-
-                    <Button Content="Sign in"
-                        HorizontalAlignment="Left"
-                        Visibility="{Binding SignInButtonVisibility}"
-                        IsEnabled="{Binding SignInEnabled}"
-                        Click="SignInButton_Click" />
-
-                    <Button Content="Clear"
-                        HorizontalAlignment="Left"
-                        Visibility="{Binding ClearButtonVisibility}"
-                        Click="ClearButton_Click" />
-
-                    <Button Content="Change"
-                        HorizontalAlignment="Left"
-                        Visibility="{Binding ChangeButtonVisibility}"
-                        Click="ChangeButton_Click" />
-
-                </StackPanel>
-
-                <StackPanel Visibility="{Binding UpdateContactDetailsVisibility}" Margin="0,20,0,8">
-                    <Image Source="pack://application:,,,/KidsSignIn;component/Resources/warning.png" Width="24" Margin="60,0,15,0" />
-                    <TextBlock Text="Please update contact details!"
-                           Style="{StaticResource Heading2}"
-                           VerticalAlignment="Center"
-                           TextWrapping="Wrap"/>
-                </StackPanel>
-
             </StackPanel>
 
+            <StackPanel Visibility="{Binding StatisticsVisibility}">
+                <TextBlock Text="STATISTICS" Style="{StaticResource Heading2}" Margin="0,0,0,12" />
+                <StackPanel x:Name="Stats" Orientation="Vertical" Visibility="{Binding StatisticsTableVisibility}">
+                    <ItemsControl ItemsSource="{Binding Statistics}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="150" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Key}" />
+                                    <TextBlock Text="{Binding Value}" Grid.Column="1"  />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Grid Margin="0,0,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Total">
+                            <TextBlock.Style>
+                                <Style>
+                                    <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="{Binding SignInTotal}" Grid.Column="1">
+                            <TextBlock.Style>
+                                <Style>
+                                    <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            
         </StackPanel>
 
         <Grid Grid.Row="1" Grid.Column="0" Margin="0,40,0,0">
