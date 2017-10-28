@@ -17,7 +17,7 @@ namespace KidsSignIn.Model
         [CsvColumn]
         public string Room { get; set; }
 
-        [CsvColumn]
+        [CsvColumn(OutputFormat="yyyy-MM-dd HH:mm:ss zzz")]
         public DateTime? SignedInAt { get; set; }
 
         [CsvColumn]
